@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OH11 Links</title>
+
+  <!-- ✅ PWA: Manifest + theme color -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0b1220">
+
+  <!-- ✅ (Optional) Better iOS appearance -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="OH11">
+
+  <style>
+    body{
+      margin:0;
+      font-family: Arial, sans-serif;
+      background:#0b1220;
+      color:#fff;
+    }
+    .wrap{
+      max-width:420px;
+      margin:0 auto;
+      padding:22px 18px 30px;
+    }
+    h1{
+      margin:10px 0 6px;
+      font-size:20px;
+      font-weight:700;
+    }
+    .sub{
+      margin:0 0 18px;
+      font-size:13px;
+      opacity:.85;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    .tile{
+      background:#111b2d;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      padding:18px 14px;
+      text-decoration:none;
+      color:#fff;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      min-height:110px;
+      transition: transform .08s ease, background .12s ease, border-color .12s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .tile:hover{
+      background:#13213a;
+      border-color: rgba(255,255,255,.14);
+    }
+    .tile:active{ transform: scale(0.98); }
+
+    /* ✅ Fixed-size icon container so all icons look consistent */
+    .icon-box{
+      width:60px;
+      height:60px;
+      background:#1c2a44;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-bottom:12px;
+    }
+    .icon{
+      font-size:28px;
+      line-height:1;
+    }
+
+    .label{
+      font-size:14px;
+      font-weight:700;
+      line-height:1.2;
+    }
+    .hint{
+      font-size:12px;
+      opacity:.8;
+      margin-top:6px;
+      line-height:1.2;
+    }
+    .footer{
+      margin-top:18px;
+      font-size:12px;
+      opacity:.7;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <h1>OH11 – Main Links</h1>
+    <p class="sub">Tap an icon to open the tool.</p>
+
+    <div class="grid">
+      <a class="tile" href="https://docs.google.com/forms/d/1J58V7JDEkiQOk67NXCKI3mihvg_CRWWMrsLlPAfuPHo/viewform?usp=drivesdk&edit_requested=true&pli=1&authuser=0" target="_blank" rel="noopener">
+        <div class="icon-box"><div class="icon">📝</div></div>
+        <div class="label">Daily Log Form</div>
+        <div class="hint">Daily log submission</div>
+      </a>
+
+      <a class="tile" href="https://openspace.ai/projects/l3l0D2i5Qj6jueOfDxIBNw" target="_blank" rel="noopener">
+        <div class="icon-box"><div class="icon">📸</div></div>
+        <div class="label">OpenSpace App</div>
+        <div class="hint">Jobsite photos / walkthrough</div>
+      </a>
+
+      <a class="tile" href="https://docs.google.com/spreadsheets/d/1sJeOrPEjsrqTf715BF2-tpm_TDP8ey2YdPOB7xlsGYU/edit?gid=0#gid=0" target="_blank" rel="noopener">
+        <div class="icon-box"><div class="icon">📊</div></div>
+        <div class="label">Base Build Activity Tracker</div>
+        <div class="hint">Tracking & progress</div>
+      </a>
+
+      <a class="tile" href="https://platform.rhumbix.com/rhumbix/login/" target="_blank" rel="noopener">
+        <div class="icon-box"><div class="icon">⏱️</div></div>
+        <div class="label">Time Entry</div>
+        <div class="hint">Enter hours</div>
+      </a>
+    </div>
+
+    <div class="footer">Mid-City – Vantage OH11</div>
+  </div>
+
+  <!-- ✅ PWA: Register Service Worker -->
+  <script>
+    (function () {
+      if (!("serviceWorker" in navigator)) return;
+
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js")
+          .catch((err) => console.error("Service Worker registration failed:", err));
+      });
+    })();
+  </script>
+</body>
+</html>
