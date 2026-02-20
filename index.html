@@ -1,3 +1,4 @@
+<!-- index.html (PWA) - Updated to 6 icons -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,11 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OH11 Links</title>
 
-  <!-- ✅ PWA: Manifest + theme color -->
+  <!-- ✅ PWA -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0b1220">
 
-  <!-- ✅ (Optional) Better iOS appearance -->
+  <!-- ✅ iOS -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="OH11">
@@ -61,7 +62,7 @@
     }
     .tile:active{ transform: scale(0.98); }
 
-    /* ✅ Fixed-size icon container so all icons look consistent */
+    /* ✅ Consistent icon sizing */
     .icon-box{
       width:60px;
       height:60px;
@@ -102,28 +103,46 @@
     <p class="sub">Tap an icon to open the tool.</p>
 
     <div class="grid">
+      <!-- 1) Daily Log Form -->
       <a class="tile" href="https://docs.google.com/forms/d/1J58V7JDEkiQOk67NXCKI3mihvg_CRWWMrsLlPAfuPHo/viewform?usp=drivesdk&edit_requested=true&pli=1&authuser=0" target="_blank" rel="noopener">
         <div class="icon-box"><div class="icon">📝</div></div>
         <div class="label">Daily Log Form</div>
         <div class="hint">Daily log submission</div>
       </a>
 
+      <!-- 2) OpenSpace -->
       <a class="tile" href="https://openspace.ai/projects/l3l0D2i5Qj6jueOfDxIBNw" target="_blank" rel="noopener">
         <div class="icon-box"><div class="icon">📸</div></div>
         <div class="label">OpenSpace App</div>
         <div class="hint">Jobsite photos / walkthrough</div>
       </a>
 
+      <!-- 3) Base Build Activity Tracker -->
       <a class="tile" href="https://docs.google.com/spreadsheets/d/1sJeOrPEjsrqTf715BF2-tpm_TDP8ey2YdPOB7xlsGYU/edit?gid=0#gid=0" target="_blank" rel="noopener">
         <div class="icon-box"><div class="icon">📊</div></div>
         <div class="label">Base Build Activity Tracker</div>
         <div class="hint">Tracking & progress</div>
       </a>
 
+      <!-- 4) Fitout Activity Tracker -->
+      <a class="tile" href="https://docs.google.com/spreadsheets/d/1YtDTKizaVS6Wturfoq9feRyd42AhEmppC_PlhVGxgeY/edit?gid=0#gid=0" target="_blank" rel="noopener">
+        <div class="icon-box"><div class="icon">🧱</div></div>
+        <div class="label">Fitout Activity Tracker</div>
+        <div class="hint">Fitout tracking</div>
+      </a>
+
+      <!-- 5) Time Entry -->
       <a class="tile" href="https://platform.rhumbix.com/rhumbix/login/" target="_blank" rel="noopener">
         <div class="icon-box"><div class="icon">⏱️</div></div>
         <div class="label">Time Entry</div>
         <div class="hint">Enter hours</div>
+      </a>
+
+      <!-- 6) Autodesk -->
+      <a class="tile" href="https://signin.autodesk.com/?flowId=xvSVgIezPe" target="_blank" rel="noopener">
+        <div class="icon-box"><div class="icon">🧩</div></div>
+        <div class="label">Autodesk</div>
+        <div class="hint">Sign in / access</div>
       </a>
     </div>
 

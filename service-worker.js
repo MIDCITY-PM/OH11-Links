@@ -1,19 +1,14 @@
-/* OH11 Links - Service Worker (PWA)
-   Basic offline cache for app shell.
-   Note: external links (Google/Openspace/Rhumbix) won't be cached due to CORS/auth.
-*/
-
-const CACHE_NAME = "oh11-links-v1";
+// service-worker.js (recommended: bump cache version so phones update)
+const CACHE_NAME = "oh11-links-v2";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./manifest.json"
-  // Add icons if you create them:
+  // Add icons if you have them:
   // "./icon-192.png",
   // "./icon-512.png"
 ];
 
-// Install: cache the app shell
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -22,7 +17,6 @@ self.addEventListener("install", (event) => {
   );
 });
 
-// Activate: clean old caches
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
@@ -31,12 +25,10 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-// Fetch: cache-first for local files, network for everything else
 self.addEventListener("fetch", (event) => {
   const req = event.request;
   const url = new URL(req.url);
 
-  // Only handle same-origin (your PWA files). External URLs go to network.
   if (url.origin !== self.location.origin) return;
 
   event.respondWith(
