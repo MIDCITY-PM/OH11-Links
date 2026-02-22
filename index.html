@@ -1,4 +1,3 @@
-<!-- index.html (PWA) - FULL VERSION (6 tiles, Autodesk fixed + Procore) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,7 +41,7 @@
       padding:18px 16px 26px;
     }
 
-    /* ✅ Branding header */
+    /* Header / branding */
     .topbar{
       display:flex;
       align-items:center;
@@ -84,7 +83,7 @@
     }
     .dot.offline{ background: var(--warn); }
 
-    /* ✅ Offline banner (App shell still loads) */
+    /* Offline banner */
     .banner{
       display:none;
       margin:0 0 14px;
@@ -111,6 +110,7 @@
     }
 
     .tile{
+      position:relative;
       background:var(--card);
       border:1px solid var(--border);
       border-radius:18px;
@@ -131,7 +131,32 @@
     }
     .tile:active{ transform: scale(0.98); }
 
-    /* ✅ Icon container (consistent) */
+    /* ✅ Disabled state when offline */
+    .tile.disabled{
+      opacity:.55;
+      filter:saturate(.85);
+      cursor:not-allowed;
+    }
+    .tile.disabled:hover{
+      background:var(--card);
+      border-color: var(--border);
+    }
+    .tile.disabled:active{
+      transform:none;
+    }
+    .tile.disabled::after{
+      content:"Offline";
+      position:absolute;
+      top:12px;
+      right:12px;
+      font-size:11px;
+      padding:4px 8px;
+      border-radius:999px;
+      background:rgba(245,158,11,.18);
+      border:1px solid rgba(245,158,11,.30);
+      color:#ffe7bf;
+    }
+
     .icon-box{
       width:60px;
       height:60px;
@@ -143,7 +168,7 @@
       margin-bottom:12px;
     }
 
-    /* ✅ SVG icon style */
+    /* ✅ Corporate “brand-like” SVG style (consistent) */
     .icon{
       width:28px;
       height:28px;
@@ -176,7 +201,6 @@
       gap:10px;
     }
 
-    /* ✅ Toast for smart feedback */
     .toast{
       position:fixed;
       left:50%;
@@ -209,7 +233,7 @@
         <div class="kicker">MCE | OH11</div>
         <div class="title">Field Hub</div>
       </div>
-      <div class="pill" id="statusPill" title="Connection status">
+      <div class="pill" title="Connection status">
         <span class="dot" id="statusDot"></span>
         <span id="statusText">Online</span>
       </div>
@@ -226,15 +250,14 @@
       <!-- Daily Log Form -->
       <a class="tile" data-label="Daily Log Form"
          href="https://docs.google.com/forms/d/1J58V7JDEkiQOk67NXCKI3mihvg_CRWWMrsLlPAfuPHo/viewform?usp=drivesdk&edit_requested=true&pli=1&authuser=0"
-         target="_blank" rel="noopener">
+         target="_blank" rel="noopener noreferrer">
         <div class="icon-box">
-          <!-- clipboard -->
+          <!-- Form / checklist -->
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M9 5h6"></path>
-            <path d="M9 3h6a2 2 0 0 1 2 2v1H7V5a2 2 0 0 1 2-2z"></path>
-            <path d="M7 6h10v15a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V6z"></path>
-            <path d="M9 10h6"></path>
-            <path d="M9 14h6"></path>
+            <path d="M8 4h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"></path>
+            <path d="M9 9h7"></path>
+            <path d="M9 13h7"></path>
+            <path d="M9 17h5"></path>
           </svg>
         </div>
         <div class="label">Daily Log Form</div>
@@ -244,13 +267,13 @@
       <!-- OpenSpace -->
       <a class="tile" data-label="OpenSpace"
          href="https://openspace.ai/projects/l3l0D2i5Qj6jueOfDxIBNw"
-         target="_blank" rel="noopener">
+         target="_blank" rel="noopener noreferrer">
         <div class="icon-box">
-          <!-- camera -->
+          <!-- Camera -->
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M4 7h4l2-2h4l2 2h4"></path>
-            <path d="M4 7h16v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7z"></path>
-            <circle cx="12" cy="13" r="3.5"></circle>
+            <path d="M4 8h4l2-2h4l2 2h4"></path>
+            <path d="M4 8h16v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8z"></path>
+            <path d="M12 12a3 3 0 1 0 0 6a3 3 0 0 0 0-6z"></path>
           </svg>
         </div>
         <div class="label">OpenSpace</div>
@@ -260,33 +283,33 @@
       <!-- Base Build Tracker -->
       <a class="tile" data-label="Base Build Tracker"
          href="https://docs.google.com/spreadsheets/d/1sJeOrPEjsrqTf715BF2-tpm_TDP8ey2YdPOB7xlsGYU/edit?gid=0#gid=0"
-         target="_blank" rel="noopener">
+         target="_blank" rel="noopener noreferrer">
         <div class="icon-box">
-          <!-- chart -->
+          <!-- Tracker / chart -->
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M4 19V5"></path>
-            <path d="M4 19h16"></path>
-            <path d="M8 17v-6"></path>
-            <path d="M12 17v-9"></path>
-            <path d="M16 17v-3"></path>
+            <path d="M5 19V6"></path>
+            <path d="M5 19h14"></path>
+            <path d="M9 17v-5"></path>
+            <path d="M13 17v-9"></path>
+            <path d="M17 17v-3"></path>
           </svg>
         </div>
         <div class="label">Base Build Tracker</div>
         <div class="hint">Tracking & progress</div>
       </a>
 
-      <!-- Fitout Tracker (same icon + hint logic) -->
+      <!-- Fitout Tracker (same icon + hint) -->
       <a class="tile" data-label="Fitout Tracker"
          href="https://docs.google.com/spreadsheets/d/1YtDTKizaVS6Wturfoq9feRyd42AhEmppC_PlhVGxgeY/edit?gid=0#gid=0"
-         target="_blank" rel="noopener">
+         target="_blank" rel="noopener noreferrer">
         <div class="icon-box">
-          <!-- chart -->
+          <!-- Tracker / chart (same) -->
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M4 19V5"></path>
-            <path d="M4 19h16"></path>
-            <path d="M8 17v-6"></path>
-            <path d="M12 17v-9"></path>
-            <path d="M16 17v-3"></path>
+            <path d="M5 19V6"></path>
+            <path d="M5 19h14"></path>
+            <path d="M9 17v-5"></path>
+            <path d="M13 17v-9"></path>
+            <path d="M17 17v-3"></path>
           </svg>
         </div>
         <div class="label">Fitout Tracker</div>
@@ -296,33 +319,33 @@
       <!-- Procore -->
       <a class="tile" data-label="Procore"
          href="https://login.procore.com/"
-         target="_blank" rel="noopener">
+         target="_blank" rel="noopener noreferrer">
         <div class="icon-box">
-          <!-- building / construction -->
+          <!-- Project / building -->
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M3 21h18"></path>
-            <path d="M5 21V7l7-4 7 4v14"></path>
-            <path d="M9 21v-6h6v6"></path>
-            <path d="M9 11h.01"></path>
-            <path d="M12 11h.01"></path>
-            <path d="M15 11h.01"></path>
+            <path d="M4 20h16"></path>
+            <path d="M6 20V8l6-3 6 3v12"></path>
+            <path d="M10 20v-5h4v5"></path>
+            <path d="M9 11h0"></path>
+            <path d="M12 11h0"></path>
+            <path d="M15 11h0"></path>
           </svg>
         </div>
         <div class="label">Procore</div>
-        <div class="hint">Project management platform</div>
+        <div class="hint">Project management</div>
       </a>
 
-      <!-- Autodesk (fixed stable login) -->
+      <!-- Autodesk (stable) -->
       <a class="tile" data-label="Autodesk"
          href="https://accounts.autodesk.com/"
-         target="_blank" rel="noopener">
+         target="_blank" rel="noopener noreferrer">
         <div class="icon-box">
-          <!-- blueprint / drafting -->
+          <!-- CAD / drafting -->
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"></path>
-            <path d="M9 7h6"></path>
-            <path d="M9 11h6"></path>
-            <path d="M9 15h4"></path>
+            <path d="M7 4h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"></path>
+            <path d="M9 9h6"></path>
+            <path d="M9 13h6"></path>
+            <path d="M9 17h4"></path>
           </svg>
         </div>
         <div class="label">Autodesk</div>
@@ -333,14 +356,13 @@
 
     <div class="footer">
       <span>Mid-City – Vantage OH11</span>
-      <span>v1.1.1</span>
+      <span>v1.2.0</span>
     </div>
   </div>
 
   <div class="toast" id="toast"></div>
 
   <script>
-    // ✅ Smart feedback (offline / invalid URL)
     const toastEl = document.getElementById("toast");
     let toastTimer = null;
 
@@ -356,43 +378,60 @@
       const text = document.getElementById("statusText");
       const banner = document.getElementById("offlineBanner");
 
+      const tiles = document.querySelectorAll(".tile");
+
       if (isOnline) {
         dot.classList.remove("offline");
         text.textContent = "Online";
         banner.classList.remove("show");
+
+        tiles.forEach(t => {
+          t.classList.remove("disabled");
+          t.removeAttribute("aria-disabled");
+          t.removeAttribute("tabindex");
+        });
       } else {
         dot.classList.add("offline");
         text.textContent = "Offline";
         banner.classList.add("show");
+
+        // ✅ Disable tiles visually + accessibly
+        tiles.forEach(t => {
+          t.classList.add("disabled");
+          t.setAttribute("aria-disabled", "true");
+          t.setAttribute("tabindex", "-1");
+        });
       }
     }
 
-    // initial
+    // init
     setOnlineUI(navigator.onLine);
 
-    // update on changes
     window.addEventListener("online", () => setOnlineUI(true));
     window.addEventListener("offline", () => setOnlineUI(false));
 
-    // intercept taps to provide better messages
+    // ✅ “Open inside vs browser” handling:
+    // We keep the hub open and open external tools in a new tab/browser.
+    // We also notify users that the OS may open a browser window.
     document.querySelectorAll(".tile").forEach((a) => {
       a.addEventListener("click", (e) => {
         const href = a.getAttribute("href") || "";
         const label = a.getAttribute("data-label") || "This link";
 
-        // Validate URL
+        if (a.classList.contains("disabled") || !navigator.onLine) {
+          e.preventDefault();
+          showToast("Offline. Connect to internet to open tools.");
+          return;
+        }
+
         if (!/^https?:\/\/.+/i.test(href)) {
           e.preventDefault();
           showToast(`${label}: invalid link. Please check the URL.`);
           return;
         }
 
-        // Offline notice: keep UI responsive + clear feedback
-        if (!navigator.onLine) {
-          e.preventDefault();
-          showToast("You’re offline. Connect to internet to open external links.");
-          return;
-        }
+        // Informative (not blocking): OS may open an external browser window
+        showToast(`Opening ${label} in browser...`);
       });
     });
 

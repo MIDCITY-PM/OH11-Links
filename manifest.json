@@ -1,10 +1,10 @@
-// manifest.json (FULL)
 {
   "name": "OH11 Field Hub",
   "short_name": "OH11",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
   "background_color": "#0b1220",
   "theme_color": "#0b1220",
   "description": "Quick access to OH11 project links.",
