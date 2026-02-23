@@ -3,16 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OH11 Field Hub</title>
+  <title>OH-11 Field Hub</title>
 
   <!-- ✅ PWA -->
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="./manifest.json">
   <meta name="theme-color" content="#0b1220">
 
   <!-- ✅ iOS -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="OH11">
+  <meta name="apple-mobile-web-app-title" content="OH-11">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+
+  <!-- ✅ Fallback favicon (optional but nice) -->
+  <link rel="icon" type="image/png" href="./icon-192.png">
 
   <style>
     :root{
@@ -41,7 +45,6 @@
       padding:18px 16px 26px;
     }
 
-    /* Header / branding */
     .topbar{
       display:flex;
       align-items:center;
@@ -83,7 +86,6 @@
     }
     .dot.offline{ background: var(--warn); }
 
-    /* Offline banner */
     .banner{
       display:none;
       margin:0 0 14px;
@@ -131,7 +133,6 @@
     }
     .tile:active{ transform: scale(0.98); }
 
-    /* ✅ Disabled state when offline */
     .tile.disabled{
       opacity:.55;
       filter:saturate(.85);
@@ -168,7 +169,6 @@
       margin-bottom:12px;
     }
 
-    /* ✅ Corporate “brand-like” SVG style (consistent) */
     .icon{
       width:28px;
       height:28px;
@@ -230,7 +230,7 @@
 
     <div class="topbar">
       <div class="brand">
-        <div class="kicker">MCE | OH11</div>
+        <div class="kicker">MCE | OH-11</div>
         <div class="title">Field Hub</div>
       </div>
       <div class="pill" title="Connection status">
@@ -252,7 +252,6 @@
          href="https://docs.google.com/forms/d/1J58V7JDEkiQOk67NXCKI3mihvg_CRWWMrsLlPAfuPHo/viewform?usp=drivesdk&edit_requested=true&pli=1&authuser=0"
          target="_blank" rel="noopener noreferrer">
         <div class="icon-box">
-          <!-- Form / checklist -->
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M8 4h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"></path>
             <path d="M9 9h7"></path>
@@ -269,7 +268,6 @@
          href="https://openspace.ai/projects/l3l0D2i5Qj6jueOfDxIBNw"
          target="_blank" rel="noopener noreferrer">
         <div class="icon-box">
-          <!-- Camera -->
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M4 8h4l2-2h4l2 2h4"></path>
             <path d="M4 8h16v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8z"></path>
@@ -285,7 +283,6 @@
          href="https://docs.google.com/spreadsheets/d/1sJeOrPEjsrqTf715BF2-tpm_TDP8ey2YdPOB7xlsGYU/edit?gid=0#gid=0"
          target="_blank" rel="noopener noreferrer">
         <div class="icon-box">
-          <!-- Tracker / chart -->
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M5 19V6"></path>
             <path d="M5 19h14"></path>
@@ -298,12 +295,11 @@
         <div class="hint">Tracking & progress</div>
       </a>
 
-      <!-- Fitout Tracker (same icon + hint) -->
+      <!-- Fitout Tracker -->
       <a class="tile" data-label="Fitout Tracker"
          href="https://docs.google.com/spreadsheets/d/1YtDTKizaVS6Wturfoq9feRyd42AhEmppC_PlhVGxgeY/edit?gid=0#gid=0"
          target="_blank" rel="noopener noreferrer">
         <div class="icon-box">
-          <!-- Tracker / chart (same) -->
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M5 19V6"></path>
             <path d="M5 19h14"></path>
@@ -321,7 +317,6 @@
          href="https://login.procore.com/"
          target="_blank" rel="noopener noreferrer">
         <div class="icon-box">
-          <!-- Project / building -->
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M4 20h16"></path>
             <path d="M6 20V8l6-3 6 3v12"></path>
@@ -335,12 +330,11 @@
         <div class="hint">Project management</div>
       </a>
 
-      <!-- Autodesk (stable) -->
+      <!-- Autodesk -->
       <a class="tile" data-label="Autodesk"
          href="https://accounts.autodesk.com/"
          target="_blank" rel="noopener noreferrer">
         <div class="icon-box">
-          <!-- CAD / drafting -->
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M7 4h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"></path>
             <path d="M9 9h6"></path>
@@ -356,7 +350,7 @@
 
     <div class="footer">
       <span>Mid-City – Vantage OH11</span>
-      <span>v1.2.0</span>
+      <span>v1.2.1</span>
     </div>
   </div>
 
@@ -377,7 +371,6 @@
       const dot = document.getElementById("statusDot");
       const text = document.getElementById("statusText");
       const banner = document.getElementById("offlineBanner");
-
       const tiles = document.querySelectorAll(".tile");
 
       if (isOnline) {
@@ -395,7 +388,6 @@
         text.textContent = "Offline";
         banner.classList.add("show");
 
-        // ✅ Disable tiles visually + accessibly
         tiles.forEach(t => {
           t.classList.add("disabled");
           t.setAttribute("aria-disabled", "true");
@@ -404,15 +396,10 @@
       }
     }
 
-    // init
     setOnlineUI(navigator.onLine);
-
     window.addEventListener("online", () => setOnlineUI(true));
     window.addEventListener("offline", () => setOnlineUI(false));
 
-    // ✅ “Open inside vs browser” handling:
-    // We keep the hub open and open external tools in a new tab/browser.
-    // We also notify users that the OS may open a browser window.
     document.querySelectorAll(".tile").forEach((a) => {
       a.addEventListener("click", (e) => {
         const href = a.getAttribute("href") || "";
@@ -430,7 +417,6 @@
           return;
         }
 
-        // Informative (not blocking): OS may open an external browser window
         showToast(`Opening ${label} in browser...`);
       });
     });
@@ -438,7 +424,7 @@
     // ✅ PWA: Register Service Worker
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./service-worker.js")
+        navigator.serviceWorker.register("./service-worker.js", { scope: "./" })
           .catch((err) => console.error("SW registration failed:", err));
       });
     }

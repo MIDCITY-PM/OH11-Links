@@ -1,15 +1,15 @@
 {
-  "name": "OH11 Field Hub",
-  "short_name": "OH11",
+  "name": "OH-11 Field Hub",
+  "short_name": "OH-11",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui", "browser"],
   "background_color": "#0b1220",
   "theme_color": "#0b1220",
-  "description": "Quick access to OH11 project links.",
+  "description": "Quick access to OH-11 project links.",
   "icons": [
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png" }
   ]
 }

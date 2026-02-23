@@ -1,92 +1,94 @@
 /* service-worker.js
-   OH11 Field Hub - Offline App Shell + Robust Cache Handling
-   Author: Enrique Torres
-
-   Notes:
-   - This service worker caches only your PWA files (same-origin).
-   - External sites (Google/Procore/Autodesk/OpenSpace) are NOT cached here.
-   - Bump CACHE_NAME when you update index/manifest/icons to force phones to refresh.
+   OH-11 Field Hub - Offline App Shell + Robust Cache Handling
+   Author: Enrique Torres (with improvements)
 */
 
-const CACHE_NAME = "oh11-links-v7"; // ✅ change to v8, v9... whenever you deploy updates
+const CACHE_NAME = "oh11-links-v8"; // ✅ change to v9, v10... whenever you deploy updates
 
-// Cache only your app shell (files hosted on GitHub Pages)
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./manifest.json"
-  // If you have icons in the repo, uncomment:
-  // "./icon-192.png",
-  // "./icon-512.png"
+  "./manifest.json",
+  "./icon-192.png",
+  "./icon-512.png"
 ];
 
-// INSTALL: Pre-cache the app shell
+// INSTALL: Pre-cache app shell (robust: don't fail everything if one asset fails)
 self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => cache.addAll(APP_SHELL))
-      .then(() => self.skipWaiting())
-  );
+  event.waitUntil((async () => {
+    const cache = await caches.open(CACHE_NAME);
+
+    await Promise.all(
+      APP_SHELL.map(async (path) => {
+        try {
+          const req = new Request(path, { cache: "reload" });
+          const res = await fetch(req);
+          if (!res.ok) throw new Error(`${path} -> ${res.status}`);
+          await cache.put(req, res);
+        } catch (e) {
+          console.warn("SW precache failed:", e);
+        }
+      })
+    );
+
+    await self.skipWaiting();
+  })());
 });
 
 // ACTIVATE: Clean old caches
 self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches.keys()
-      .then((keys) => Promise.all(
-        keys.map((key) => (key !== CACHE_NAME ? caches.delete(key) : null))
-      ))
-      .then(() => self.clients.claim())
-  );
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.map((key) => (key !== CACHE_NAME ? caches.delete(key) : null)));
+    await self.clients.claim();
+  })());
 });
 
-// FETCH: Serve cached shell files; fallback to network; offline fallback to cached index.html
+// FETCH
 self.addEventListener("fetch", (event) => {
   const req = event.request;
 
-  // Only handle GET requests
   if (req.method !== "GET") return;
 
   const url = new URL(req.url);
 
-  // Only cache/serve same-origin assets (your GitHub Pages domain)
+  // Only same-origin
   if (url.origin !== self.location.origin) return;
 
-  // For navigation requests (opening the app), use cache-first with offline fallback
   const isNavigation =
     req.mode === "navigate" ||
-    (req.destination === "document") ||
+    req.destination === "document" ||
     (req.headers.get("accept") || "").includes("text/html");
 
+  // Navigation: network-first with offline fallback
   if (isNavigation) {
-    event.respondWith(
-      fetch(req)
-        .then((res) => {
-          // Update cache with fresh index/html when online
-          const copy = res.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(req, copy)).catch(() => {});
-          return res;
-        })
-        .catch(() => caches.match("./index.html"))
-    );
+    event.respondWith((async () => {
+      try {
+        const fresh = await fetch(req);
+        const cache = await caches.open(CACHE_NAME);
+        cache.put("./index.html", fresh.clone()).catch(() => {});
+        return fresh;
+      } catch {
+        return (await caches.match("./index.html")) || Response.error();
+      }
+    })());
     return;
   }
 
-  // For static assets (css/js/images), cache-first then network
-  event.respondWith(
-    caches.match(req).then((cached) => {
-      if (cached) return cached;
+  // Assets: cache-first then network
+  event.respondWith((async () => {
+    const cached = await caches.match(req);
+    if (cached) return cached;
 
-      return fetch(req)
-        .then((res) => {
-          // Cache successful same-origin responses
-          if (res && res.ok) {
-            const copy = res.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(req, copy)).catch(() => {});
-          }
-          return res;
-        })
-        .catch(() => cached); // if both fail, return whatever we had (likely undefined)
-    })
-  );
+    try {
+      const res = await fetch(req);
+      if (res && res.ok) {
+        const cache = await caches.open(CACHE_NAME);
+        cache.put(req, res.clone()).catch(() => {});
+      }
+      return res;
+    } catch {
+      return cached || Response.error();
+    }
+  })());
 });
