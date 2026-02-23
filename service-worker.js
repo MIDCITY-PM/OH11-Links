@@ -1,9 +1,8 @@
 /* service-worker.js
    OH-11 Field Hub - Offline App Shell + Robust Cache Handling
-   Author: Enrique Torres (with improvements)
 */
 
-const CACHE_NAME = "oh11-links-v8"; // ✅ change to v9, v10... whenever you deploy updates
+const CACHE_NAME = "oh11-links-v10"; // ✅ bump this whenever you update assets
 
 const APP_SHELL = [
   "./",
@@ -13,7 +12,6 @@ const APP_SHELL = [
   "./icon-512.png"
 ];
 
-// INSTALL: Pre-cache app shell (robust: don't fail everything if one asset fails)
 self.addEventListener("install", (event) => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE_NAME);
@@ -35,7 +33,6 @@ self.addEventListener("install", (event) => {
   })());
 });
 
-// ACTIVATE: Clean old caches
 self.addEventListener("activate", (event) => {
   event.waitUntil((async () => {
     const keys = await caches.keys();
@@ -44,15 +41,12 @@ self.addEventListener("activate", (event) => {
   })());
 });
 
-// FETCH
 self.addEventListener("fetch", (event) => {
   const req = event.request;
 
   if (req.method !== "GET") return;
 
   const url = new URL(req.url);
-
-  // Only same-origin
   if (url.origin !== self.location.origin) return;
 
   const isNavigation =
@@ -60,7 +54,6 @@ self.addEventListener("fetch", (event) => {
     req.destination === "document" ||
     (req.headers.get("accept") || "").includes("text/html");
 
-  // Navigation: network-first with offline fallback
   if (isNavigation) {
     event.respondWith((async () => {
       try {
@@ -75,7 +68,6 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Assets: cache-first then network
   event.respondWith((async () => {
     const cached = await caches.match(req);
     if (cached) return cached;
